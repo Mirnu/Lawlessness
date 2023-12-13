@@ -1,12 +1,12 @@
 import { createProducer } from "@rbxts/reflex";
-import { EnemyData } from "./types";
+import { EnemyData } from "../types";
 import { GetEnemy } from "shared/utils/PlayerUtils";
 
-export interface FightingState {
+export interface EnemyState {
 	readonly [enemy: string]: EnemyData;
 }
 
-const initialState: FightingState = {};
+const initialState: EnemyState = {};
 
 export const EnemySlice = createProducer(initialState, {
 	LoadEnemy: (state, player: string, data: EnemyData) => ({

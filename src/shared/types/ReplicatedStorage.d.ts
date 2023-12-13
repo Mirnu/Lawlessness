@@ -1,7 +1,7 @@
 interface Animations extends Folder {
 	Fightings: Folder & {
 		Fist: Folder & {
-			Animation: Animation;
+			RightPunch: Animation;
 		};
 	};
 }

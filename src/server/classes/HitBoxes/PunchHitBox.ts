@@ -3,7 +3,7 @@ import { ConfigPunchHitBox } from "./HitBoxConfig";
 import { Workspace } from "@rbxts/services";
 
 export class PunchHitBox {
-	public Init(character: Character): Model[] {
+	public Init(character: Character): Part {
 		const Weld = new Instance("Weld");
 		Weld.Parent = character.HumanoidRootPart;
 		const HitBox = new Instance("Part");
@@ -16,18 +16,10 @@ export class PunchHitBox {
 		Weld.Part0 = character.HumanoidRootPart;
 		Weld.Part1 = HitBox;
 
-		const enemies: Model[] = [];
-
-		const connect = HitBox.Touched.Connect((otherPart) => {
-			const enemy = otherPart.FindFirstAncestorWhichIsA("Model");
-			if (enemy !== undefined && enemy === character) return;
-			enemies.push(enemy!);
+		Promise.delay(ConfigPunchHitBox.time).andThen(() => {
+			HitBox.Destroy();
 		});
 
-		task.wait(ConfigPunchHitBox.time);
-		connect.Disconnect();
-		HitBox.Destroy();
-
-		return enemies;
+		return HitBox;
 	}
 }

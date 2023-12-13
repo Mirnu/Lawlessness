@@ -1,11 +1,6 @@
-import { SharedProducer } from "shared/slices";
-import { EnemyBattleState, EnemyData } from "shared/slices/Player/types";
+import { store } from "server/store";
+import { defaultEnemyData } from "shared/store/fightings/Fightings-Slice";
 
-const data: EnemyData = {
-	health: 100,
-	enemyBattleState: EnemyBattleState.Idle,
-};
-
-SharedProducer.LoadEnemy("1", data);
-SharedProducer.LoadEnemy("2", data);
-SharedProducer.LoadEnemy("3", data);
+store.LoadEnemy("1", defaultEnemyData);
+store.LoadEnemy("2", defaultEnemyData);
+store.LoadEnemy("3", defaultEnemyData);

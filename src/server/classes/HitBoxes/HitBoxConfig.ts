@@ -3,6 +3,7 @@ export interface ConfigHitBox {
 	C0: Vector3;
 	time: number;
 	damage: number;
+	cooldown: number;
 }
 
 export const ConfigPunchHitBox: ConfigHitBox = {
@@ -10,4 +11,5 @@ export const ConfigPunchHitBox: ConfigHitBox = {
 	C0: new Vector3(0, 0, -2),
 	time: 0.3,
 	damage: 1,
+	cooldown: 2,
 };

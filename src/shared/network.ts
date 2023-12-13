@@ -1,10 +1,14 @@
 import { Networking } from "@flamework/networking";
+import { BroadcastAction } from "@rbxts/reflex";
 
 interface ClientToServerEvents {
 	MousePressed(): void;
+	requestState(): void;
 }
 
-interface ServerToClientEvents {}
+interface ServerToClientEvents {
+	broadcast(actions: BroadcastAction[]): void;
+}
 
 interface ClientToServerFunctions {}
 
