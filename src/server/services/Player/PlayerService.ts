@@ -2,10 +2,9 @@ import { Players, Workspace } from "@rbxts/services";
 import { Service, OnStart, OnInit } from "@flamework/core";
 import { Components } from "@flamework/components";
 import { FightingComponent } from "server/components/FightingComponent";
-import { EnemyData, EnemyState } from "shared/store/types";
 import { GetCharacter } from "shared/utils/PlayerUtils";
 import { store } from "server/store";
-import { defaultEnemyData } from "shared/store/fightings/Fightings-Slice";
+import { defaultEnemyData } from "shared/store/enemies/Enemies-Slice";
 
 @Service({})
 export class PlayerService implements OnStart {

@@ -1,21 +1,28 @@
-export enum EnemyState {
+export enum EnemyStateType {
 	Beat,
 	Idle,
 	Died,
 }
 
-export enum HitState {
-	RightPunch = 0,
-	LeftPunch = 1,
+export enum HitStateType {
+	Rest = 0,
+	RightPunch = 1,
+	LeftPunch = 2,
 }
 
-export const LastHitState = HitState.LeftPunch;
+export enum SessionStatusType {
+	initialized,
+	playing,
+}
+
+export const LastHitState = HitStateType.LeftPunch;
 
 export interface EnemyData {
 	readonly health: number;
-	readonly enemyState: EnemyState;
-	readonly hit: HitState;
+	readonly enemyState: EnemyStateType;
+	readonly hit: HitStateType;
 	readonly IsCoolDown: boolean;
+	readonly SessionStatus: SessionStatusType;
 }
 
 export type EnemyType = keyof EnemyData;

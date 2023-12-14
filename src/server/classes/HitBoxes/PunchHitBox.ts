@@ -1,5 +1,5 @@
 import { Character } from "shared/types/Player";
-import { ConfigPunchHitBox } from "./HitBoxConfig";
+import { ConfigPunchHitBox } from "../../../shared/configs/HitBoxConfig";
 import { Workspace } from "@rbxts/services";
 
 export class PunchHitBox {

@@ -18,7 +18,15 @@ export const GetEnemiesByProximity = (startingPoint: Vector3, lenght: number): C
 };
 
 export const PlayerIsClose = (p1: Vector3, p2: Vector3, lenght: number) => {
-	return p1.sub(p2).Magnitude >= lenght;
+	return p1.sub(p2).Magnitude <= lenght;
+};
+
+export const GetEnemyPosition = (enemy: Character) => {
+	return enemy.HumanoidRootPart.CFrame.Position;
+};
+
+export const GetPlayerPosition = (player: Player) => {
+	return GetCharacter(player).HumanoidRootPart.CFrame.Position;
 };
 
 export const GetPlayer = (): Player[] => Players.GetChildren() as Player[];
