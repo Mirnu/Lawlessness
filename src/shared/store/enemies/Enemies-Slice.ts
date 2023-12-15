@@ -1,7 +1,7 @@
 import { createProducer } from "@rbxts/reflex";
 import { GetEnemy } from "shared/utils/PlayerUtils";
 import { mapProperty } from "shared/utils/object-utils";
-import { EnemyData, EnemyStateType, HitStateType, LastHitState, SessionStatusType } from "../types";
+import { EnemyData, EnemyStateType, HitStateType, LastHitState, SessionStatusType } from "./Enemies-Types";
 
 export interface EnemyState {
 	readonly [enemy: string]: EnemyData;
@@ -13,6 +13,7 @@ export const defaultEnemyData: EnemyData = {
 	hit: HitStateType.RightPunch,
 	IsCoolDown: false,
 	SessionStatus: SessionStatusType.initialized,
+	money: 0,
 };
 
 const initialState: EnemyState = {} as EnemyState;
@@ -34,7 +35,6 @@ export const EnemySlice = createProducer(initialState, {
 		if (enemy !== undefined) {
 			health = enemy.health - damage;
 			const Character = GetEnemy(player);
-			print(health, damage);
 			if (Character !== undefined) Character.Humanoid.Health = health;
 		}
 
@@ -47,9 +47,7 @@ export const EnemySlice = createProducer(initialState, {
 		};
 	},
 	Hit: (state, player: string) => {
-		print(state[player]?.IsCoolDown);
 		if (state[player]?.IsCoolDown) return state;
-		print("Hit");
 		return mapProperty(state, player, (enemy) => ({
 			...enemy,
 			enemyState: EnemyStateType.Beat,

@@ -1,4 +1,3 @@
-import { Character } from "shared/types/Player";
 import { ConfigPunchHitBox } from "../../../shared/configs/HitBoxConfig";
 import { Workspace } from "@rbxts/services";
 

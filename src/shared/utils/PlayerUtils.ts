@@ -1,5 +1,4 @@
 import { Players, Workspace } from "@rbxts/services";
-import { Character } from "shared/types/Player";
 
 export const GetCharacter = (player: Player): Character => {
 	return (player.Character as unknown as Character) ?? (player.CharacterAdded.Wait() as unknown as Character);

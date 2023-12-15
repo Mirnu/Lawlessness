@@ -1,4 +1,3 @@
-import { Character } from "shared/types/Player";
 import { GetEnemy } from "shared/utils/PlayerUtils";
 
 export abstract class BattleAnimation {

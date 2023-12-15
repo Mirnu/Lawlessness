@@ -5,9 +5,23 @@ import { PunchHitBox } from "server/classes/HitBoxes/PunchHitBox";
 import { GetCharacter } from "shared/utils/PlayerUtils";
 import { ConfigPunchHitBox } from "shared/configs/HitBoxConfig";
 import { store } from "server/store";
-import { Character } from "shared/types/Player";
+import { EnemyTags } from "shared/types/EnemyTags";
 
 interface Attributes {}
+
+const touchedActions = new ReadonlyMap<EnemyTags, (model: Model) => void>([
+	[EnemyTags.enemy, (enemy: Model) => enemyTouched(enemy)],
+	[EnemyTags.atm, (enemy: Model) => atmTouched(enemy)],
+]);
+
+const enemyTouched = (enemy: Model) => {
+	store.TakeDamage(enemy.Name, ConfigPunchHitBox.damage);
+};
+
+const atmTouched = (enemy: Model) => {
+	const id = enemy.GetAttribute("id") as string;
+	store.HitATM(id, ConfigPunchHitBox.damage);
+};
 
 @Component({})
 export class FightingComponent extends BaseComponent<Attributes, Player> implements OnStart {
@@ -31,14 +45,20 @@ export class FightingComponent extends BaseComponent<Attributes, Player> impleme
 				this.startCoolDown(player.Name);
 				return;
 			}
-			const damagesEnemy: Model[] = [];
+			const damagesModel: Model[] = [];
 			store.Hit(player.Name);
 			const HitBox = new PunchHitBox().Init(GetCharacter(player));
 			HitBox.Touched.Connect((otherPart) => {
-				const enemy = otherPart.FindFirstAncestorWhichIsA("Model");
-				if (enemy && damagesEnemy.indexOf(enemy) === -1) {
-					damagesEnemy.push(enemy);
-					store.TakeDamage(enemy.Name, ConfigPunchHitBox.damage);
+				const model = otherPart.FindFirstAncestorWhichIsA("Model") as Model;
+
+				if (model && damagesModel.indexOf(model) === -1) {
+					damagesModel.push(model);
+					print(model.GetTags());
+					const specificEntities = model.GetTags() as Array<string>;
+					const entity = specificEntities[0] as EnemyTags;
+					print(entity, " tag");
+					const action = touchedActions.get(entity);
+					if (action) action(model);
 				}
 			});
 			this.startTimeForTransition(player.Name);

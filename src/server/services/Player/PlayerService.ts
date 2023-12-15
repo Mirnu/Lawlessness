@@ -5,6 +5,8 @@ import { FightingComponent } from "server/components/FightingComponent";
 import { GetCharacter } from "shared/utils/PlayerUtils";
 import { store } from "server/store";
 import { defaultEnemyData } from "shared/store/enemies/Enemies-Slice";
+import { ATMManager } from "server/classes/ATM/ATMManager";
+import { EnemiesManager } from "server/classes/Enemy/EnemiesManager";
 
 @Service({})
 export class PlayerService implements OnStart {
@@ -14,14 +16,16 @@ export class PlayerService implements OnStart {
 		Players.PlayerAdded.Connect((player) => {
 			player.CharacterAdded.Connect((character) => {
 				this.PlayerAdded(player);
-				print("Появился");
 			});
 		});
 
 		this.initClasses();
 	}
 
-	private initClasses() {}
+	private initClasses() {
+		new ATMManager();
+		new EnemiesManager();
+	}
 
 	private PlayerAdded(player: Player) {
 		store.LoadEnemy(player.Name, defaultEnemyData);

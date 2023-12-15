@@ -23,6 +23,7 @@ export interface EnemyData {
 	readonly hit: HitStateType;
 	readonly IsCoolDown: boolean;
 	readonly SessionStatus: SessionStatusType;
+	readonly money: number;
 }
 
 export type EnemyType = keyof EnemyData;
