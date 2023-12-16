@@ -73,4 +73,16 @@ export const EnemySlice = createProducer(initialState, {
 			SessionStatus: session,
 		}));
 	},
+	AddMoney: (state, player: string, money: number) => {
+		return mapProperty(state, player, (enemy) => ({
+			...enemy,
+			money: money,
+		}));
+	},
+	RemoveMoney: (state, player: string, money: number) => {
+		return mapProperty(state, player, (enemy) => ({
+			...enemy,
+			money: math.max(0, enemy.money - money),
+		}));
+	},
 });

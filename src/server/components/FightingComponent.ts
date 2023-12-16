@@ -53,10 +53,8 @@ export class FightingComponent extends BaseComponent<Attributes, Player> impleme
 
 				if (model && damagesModel.indexOf(model) === -1) {
 					damagesModel.push(model);
-					print(model.GetTags());
 					const specificEntities = model.GetTags() as Array<string>;
 					const entity = specificEntities[0] as EnemyTags;
-					print(entity, " tag");
 					const action = touchedActions.get(entity);
 					if (action) action(model);
 				}

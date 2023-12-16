@@ -13,3 +13,7 @@ export const SelectHit = (player: string) => {
 };
 
 export const SelectAllEnemies = (state: SharedState) => state;
+
+export const SelectPlayerMoney = (player: string) => {
+	return (state: SharedState) => state.enemy[player].money;
+};

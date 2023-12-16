@@ -1,10 +1,12 @@
-import { Controller, OnStart } from "@flamework/core";
 import { Events } from "client/network";
 import { LocalPlayer } from "client/utils/PlayerUtils";
 
-@Controller({})
-export class UserInputController implements OnStart {
-	onStart() {
+export class UserInputManager {
+	constructor() {
+		this.start();
+	}
+
+	private start() {
 		const mouse = LocalPlayer.GetMouse();
 
 		mouse.Button1Down.Connect(() => {
