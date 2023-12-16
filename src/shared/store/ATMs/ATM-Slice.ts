@@ -15,6 +15,12 @@ export const ATMSlice = createProducer(initState, {
 	RemoveATM: (state, atmKey: string) => {
 		return assign(state, { [atmKey]: undefined });
 	},
+	SetHealth: (state, atmKey: string, health: number) => {
+		return mapProperty(state, atmKey, (atm) => ({
+			...atm,
+			health: health,
+		}));
+	},
 	HitATM: (state, atmKey: string, damage: number) => {
 		if (state[atmKey] === undefined) return state;
 
@@ -31,10 +37,10 @@ export const ATMSlice = createProducer(initState, {
 			health: health,
 		}));
 	},
-	SetHealth: (state, atmKey: string, health: number) => {
+	RecoveryATM: (state, atmKey: string) => {
 		return mapProperty(state, atmKey, (atm) => ({
 			...atm,
-			health: health,
+			state: ATMStateType.Worker,
 		}));
 	},
 });

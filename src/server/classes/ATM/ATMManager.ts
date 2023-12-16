@@ -1,5 +1,6 @@
 import { Workspace } from "@rbxts/services";
 import { store } from "server/store";
+import { ATMDefaultData, ATMRecoveryTime } from "shared/configs/ATMConfig";
 import { SelectATMState } from "shared/store/ATMs/ATM-Selectors";
 import { ATMData, ATMStateType } from "shared/store/ATMs/ATM-Types";
 import { EnemyTags } from "shared/types/EnemyTags";
@@ -17,6 +18,11 @@ export class ATMManager {
 		const part = new Instance("Part");
 		part.Parent = Workspace;
 		part.CFrame = enemy.MoneySpawn.CFrame;
+
+		Promise.delay(ATMRecoveryTime).andThen(() => {
+			store.RecoveryATM(atmId);
+			store.SetHealth(atmId, ATMDefaultData.health);
+		});
 	}
 
 	private initATMs() {
@@ -34,11 +40,6 @@ export class ATMManager {
 	private initATM(id: string, enemy: Instance) {
 		enemy.AddTag(EnemyTags.atm);
 		enemy.SetAttribute("id", id);
-		const atm: ATMData = {
-			money: 100,
-			state: ATMStateType.Worker,
-			health: 10,
-		};
-		store.LoadATM(id, atm);
+		store.LoadATM(id, ATMDefaultData);
 	}
 }
