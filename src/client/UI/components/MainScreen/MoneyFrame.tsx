@@ -1,9 +1,9 @@
 import Roact, { useMemo } from "@rbxts/roact";
-import { UIGradient } from "../../app/commons/UIGradient";
-import { TextLabel } from "../../app/commons/TextLabel";
 import { useSelector } from "@rbxts/react-reflex";
 import { SelectPlayerMoney } from "shared/store/enemies/Enemies-Selector";
 import { LocalPlayer } from "client/utils/PlayerUtils";
+import { UIGradient } from "../commons/UIGradient";
+import { TextLabel } from "../commons/TextLabel";
 
 export const MoneyFrame = () => {
 	const moneyValue = useSelector(SelectPlayerMoney(LocalPlayer.Name));
@@ -18,19 +18,9 @@ export const MoneyFrame = () => {
 		new NumberSequenceKeypoint(1, 0.25, 0),
 	];
 
-	const textChildren = useMemo(() => {
-		return (
-			<>
-				<UIGradient color={colorGradient} transparency={transparencyGradient} rotation={90} />
-				<uistroke Thickness={1.9} />
-			</>
-		);
-	}, []);
-
 	return (
 		<>
 			<frame
-				Key="Money"
 				AnchorPoint={new Vector2(1, 1)}
 				BackgroundColor3={Color3.fromRGB(255, 255, 255)}
 				BorderSizePixel={0}
@@ -44,9 +34,11 @@ export const MoneyFrame = () => {
 					text={tostring(moneyValue)}
 					position={new UDim2(0.5, 0, 0.5, 0)}
 					size={new UDim2(0.9, 0, 1, 0)}
-				/>
+					color={new Color3(1, 1, 1)}
+				>
+					<uistroke Thickness={1.9} />
+				</TextLabel>
 			</frame>
-			{textChildren}
 		</>
 	);
 };

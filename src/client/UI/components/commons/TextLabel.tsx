@@ -1,14 +1,15 @@
-import Roact, { Element } from "@rbxts/roact";
-import { UIGradient, UIGradientProps } from "./UIGradient";
+import Roact from "@rbxts/roact";
+import { UIGradientProps } from "./UIGradient";
 
-interface TetxLabelProps extends Roact.PropsWithChildren {
+interface TextLabelProps extends Roact.PropsWithChildren {
 	text: string;
 	position: UDim2;
 	size: UDim2;
+	color: Color3
 	uigradient?: UIGradientProps;
 }
 
-export const TextLabel = (props: TetxLabelProps) => {
+export const TextLabel = (props: TextLabelProps) => {
 	return (
 		<textlabel
 			AnchorPoint={new Vector2(0.5, 0.5)}
@@ -17,7 +18,7 @@ export const TextLabel = (props: TetxLabelProps) => {
 			Position={props.position}
 			Size={props.size}
 			Text={props.text ?? "0"}
-			TextColor3={Color3.fromRGB(255, 255, 255)}
+			TextColor3={props.color}
 			TextScaled={true}
 			TextSize={14}
 			TextWrapped={true}
@@ -25,7 +26,7 @@ export const TextLabel = (props: TetxLabelProps) => {
 			TextYAlignment={Enum.TextYAlignment.Bottom}
 		>
 			{props.children}
-			<uistroke Thickness={1.9000000000000001} />
+
 		</textlabel>
 	);
 };

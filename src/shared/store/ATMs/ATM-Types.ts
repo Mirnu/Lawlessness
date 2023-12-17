@@ -8,3 +8,4 @@ export interface ATMData {
 	state: ATMStateType;
 	health: number;
 }
+

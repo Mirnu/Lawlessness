@@ -8,6 +8,7 @@ import { defaultEnemyData } from "shared/store/enemies/Enemies-Slice";
 import { ATMManager } from "server/classes/ATM/ATMManager";
 import { EnemiesManager } from "server/classes/Enemy/EnemiesManager";
 import { EnemyTags } from "shared/types/EnemyTags";
+import { WeaponTypes } from "shared/store/enemies/Enemies-Types";
 
 @Service({})
 export class PlayerService implements OnStart {
@@ -36,5 +37,8 @@ export class PlayerService implements OnStart {
 		character.AddTag(EnemyTags.enemy);
 		character.Parent = Workspace.Map.enemies;
 		character.Humanoid.Died.Connect(() => store.RemoveEnemy(player.Name));
+
+		task.wait(5)
+		store.AddWeapon(player.Name, WeaponTypes.Fist)
 	}
 }
