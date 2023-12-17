@@ -1,7 +1,7 @@
 import { SharedState } from "..";
 
 export const SeletEnemyState = (player: string) => {
-	return (state: SharedState) => state.enemy[player].enemyState;
+	return (state: SharedState) => state.enemy[player]?.enemyState;
 };
 
 export const SelectEnemy = (player: string) => {
@@ -9,11 +9,11 @@ export const SelectEnemy = (player: string) => {
 };
 
 export const SelectHit = (player: string) => {
-	return (state: SharedState) => state.enemy[player].hit;
+	return (state: SharedState) => state.enemy[player]?.hit;
 };
 
 export const SelectAllEnemies = (state: SharedState) => state;
 
 export const SelectPlayerMoney = (player: string) => {
-	return (state: SharedState) => state.enemy[player].money;
+	return (state: SharedState) => state.enemy[player]?.money;
 };

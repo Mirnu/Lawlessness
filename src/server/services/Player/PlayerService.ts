@@ -7,6 +7,7 @@ import { store } from "server/store";
 import { defaultEnemyData } from "shared/store/enemies/Enemies-Slice";
 import { ATMManager } from "server/classes/ATM/ATMManager";
 import { EnemiesManager } from "server/classes/Enemy/EnemiesManager";
+import { EnemyTags } from "shared/types/EnemyTags";
 
 @Service({})
 export class PlayerService implements OnStart {
@@ -32,6 +33,7 @@ export class PlayerService implements OnStart {
 		this.components.addComponent<FightingComponent>(player);
 
 		const character = GetCharacter(player);
+		character.AddTag(EnemyTags.enemy);
 		character.Parent = Workspace.Map.enemies;
 		character.Humanoid.Died.Connect(() => store.RemoveEnemy(player.Name));
 	}
