@@ -4,7 +4,7 @@ import { LocalPlayer } from "client/utils/PlayerUtils";
 import { GetCharacter, GetEnemy, GetEnemyPosition, PlayerIsClose } from "shared/utils/PlayerUtils";
 import { PunchAnimation } from "./PunchAnimation";
 import { BattleAnimation } from "./BattleAnimation";
-import { SelectAllEnemies, SelectHit } from "shared/store/enemies/Enemies-Selector";
+import { SelectHit } from "shared/store/enemies/Enemies-Selector";
 import { EnemyData, EnemyStateType, HitStateType } from "shared/store/enemies/Enemies-Types";
 
 const AllAnimations = ReplicatedStorage.Prefabs.Animations;
@@ -36,7 +36,7 @@ export class AnimationManager {
 	}
 
 	private initPlayer(player: string) {
-		store.subscribe(SelectHit(player), (cur, last) => {
+		store.subscribe(SelectHit(player), (cur, prev) => {
 			if (PlayerIsClose(GetEnemyPosition(GetCharacter(LocalPlayer)), GetEnemyPosition(GetEnemy(player)!), 5)) {
 				const fightingState = store.getState().enemy[player] as EnemyData;
 				if (fightingState !== undefined && fightingState.enemyState !== EnemyStateType.Idle) {

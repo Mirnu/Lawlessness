@@ -4,6 +4,8 @@ import { BroadcastAction } from "@rbxts/reflex";
 interface ClientToServerEvents {
 	MousePressed(): void;
 	requestState(): void;
+	KeyPressed(value: number): void;
+	KeyUnlocked(value: number): void;
 }
 
 interface ServerToClientEvents {

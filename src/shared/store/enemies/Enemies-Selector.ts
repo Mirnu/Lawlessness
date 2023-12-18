@@ -19,5 +19,11 @@ export const SelectPlayerMoney = (player: string) => {
 };
 
 export const SelectPlayerWeapons = (player: string) => {
-	return (state: SharedState) => state.enemy[player]?.weapons
-}
+	return (state: SharedState) => state.enemy[player]?.weapons;
+};
+
+export const SelectPlayerCurrentWeapon = (player: string) => {
+	return (state: SharedState) => state.enemy[player]?.currentWeapon;
+};
+
+export const SelectPlayers = (state: SharedState) => state.enemy;

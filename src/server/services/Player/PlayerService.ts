@@ -9,6 +9,7 @@ import { ATMManager } from "server/classes/ATM/ATMManager";
 import { EnemiesManager } from "server/classes/Enemy/EnemiesManager";
 import { EnemyTags } from "shared/types/EnemyTags";
 import { WeaponTypes } from "shared/store/enemies/Enemies-Types";
+import { SelectPlayerCurrentWeapon } from "shared/store/enemies/Enemies-Selector";
 
 @Service({})
 export class PlayerService implements OnStart {
@@ -38,7 +39,7 @@ export class PlayerService implements OnStart {
 		character.Parent = Workspace.Map.enemies;
 		character.Humanoid.Died.Connect(() => store.RemoveEnemy(player.Name));
 
-		task.wait(5)
-		store.AddWeapon(player.Name, WeaponTypes.Fist)
+		task.wait(5);
+		store.AddWeapon(player.Name, WeaponTypes.Pistol);
 	}
 }

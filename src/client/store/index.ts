@@ -13,4 +13,5 @@ export function createStore() {
 	return store;
 }
 
+export type RootProducer = typeof store;
 export const store = createStore();

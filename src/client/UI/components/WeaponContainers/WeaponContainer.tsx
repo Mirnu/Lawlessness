@@ -1,34 +1,58 @@
-import Roact, { useState } from "@rbxts/roact";
+import { useEventListener } from "@rbxts/pretty-react-hooks";
+import { useProducer, useSelector } from "@rbxts/react-reflex";
+import Roact, { useEffect, useState } from "@rbxts/roact";
+import { UserInputService } from "@rbxts/services";
 import { TextLabel } from "client/UI/components/commons/TextLabel";
 import { UIGradient } from "client/UI/components/commons/UIGradient";
+import { RootProducer } from "client/store";
+import { LocalPlayer } from "client/utils/PlayerUtils";
+import { SelectPlayerCurrentWeapon } from "shared/store/enemies/Enemies-Selector";
 import { WeaponTypes } from "shared/store/enemies/Enemies-Types";
 
 interface WeaponContainerProps {
-	id: number
-	weapon: WeaponTypes
+	id: number;
+	weapon: WeaponTypes;
 }
 
+const NONSELECTIVE = 0.95;
+const SELECTIVE = 0.5;
+
 export const WeaponContainer = (props: WeaponContainerProps) => {
-	const [transparency, setTransparency] = useState(0.95)
+	const [transparency, setTransparency] = useState(NONSELECTIVE);
+	const weapon = useSelector(SelectPlayerCurrentWeapon(LocalPlayer.Name));
+
+	const isCurrentWeapon = () => {
+		return weapon === props.weapon;
+	};
+
+	useEffect(() => {
+		if (weapon === props.weapon) {
+			print(weapon, props.weapon);
+			setTransparency(SELECTIVE);
+		} else {
+			setTransparency(NONSELECTIVE);
+		}
+	}, [weapon]);
+
 	return (
 		<frame
-			Key="WeaponContainer"
+			key="WeaponContainer"
 			AnchorPoint={new Vector2(1, 1)}
 			BackgroundColor3={Color3.fromRGB(255, 255, 255)}
 			BackgroundTransparency={transparency}
 			BorderSizePixel={0}
-			Position={props.id ? new UDim2(1, 0, 1 - props.id * 0.15, 0): new UDim2(1, 0, 1, 0)}
+			Position={props.id ? new UDim2(1, 0, 1 - props.id * 0.15, 0) : new UDim2(1, 0, 1, 0)}
 			Size={new UDim2(1, 0, 0.15, 0)}
-
 			Event={{
 				MouseEnter: () => {
-					setTransparency(0.5)
+					setTransparency(SELECTIVE);
 				},
 				MouseLeave: () => {
-					setTransparency(0.95)
-				}
-			}}>
-
+					if (isCurrentWeapon()) return;
+					setTransparency(NONSELECTIVE);
+				},
+			}}
+		>
 			<UIGradient
 				color={[
 					new ColorSequenceKeypoint(0, Color3.fromRGB(53, 53, 53)),
@@ -43,7 +67,12 @@ export const WeaponContainer = (props: WeaponContainerProps) => {
 			/>
 
 			<uistroke ApplyStrokeMode={Enum.ApplyStrokeMode.Border} Thickness={1.5} Transparency={0.99} />
-			<TextLabel position={new UDim2(0.881, 0,0.264, 0)} size={new UDim2(0, 34, 0, 25)} text={tostring(props.id + 1)} color={new Color3(0, 0, 0)} />
+			<TextLabel
+				position={new UDim2(0.881, 0, 0.264, 0)}
+				size={new UDim2(0, 34, 0, 25)}
+				text={tostring(props.id + 1)}
+				color={new Color3(0, 0, 0)}
+			/>
 		</frame>
 	);
 };

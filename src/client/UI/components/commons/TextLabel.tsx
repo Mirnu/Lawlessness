@@ -5,7 +5,7 @@ interface TextLabelProps extends Roact.PropsWithChildren {
 	text: string;
 	position: UDim2;
 	size: UDim2;
-	color: Color3
+	color: Color3;
 	uigradient?: UIGradientProps;
 }
 
@@ -26,7 +26,6 @@ export const TextLabel = (props: TextLabelProps) => {
 			TextYAlignment={Enum.TextYAlignment.Bottom}
 		>
 			{props.children}
-
 		</textlabel>
 	);
 };

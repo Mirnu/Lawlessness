@@ -6,16 +6,16 @@ import { WeaponContainer } from "./WeaponContainer";
 import { WeaponTypes } from "shared/store/enemies/Enemies-Types";
 
 const weaponContainers = (ElementsWeaponContainer: WeaponTypes[]) => {
-	let result: Roact.Element[] = []
+	const result: Roact.Element[] = [];
 	if (ElementsWeaponContainer === undefined) return;
 	ElementsWeaponContainer.forEach((weapon, index) => {
-		result.push(<WeaponContainer id={index} weapon={weapon} />)
-	})
-	return result
-}
+		result.push(<WeaponContainer id={index} weapon={weapon} />);
+	});
+	return result;
+};
 
 export const WeaponContainers = () => {
-	const ElementsWeaponContainer = useSelector(SelectPlayerWeapons(LocalPlayer.Name))
+	const ElementsWeaponContainer = useSelector(SelectPlayerWeapons(LocalPlayer.Name));
 
 	return (
 		<frame

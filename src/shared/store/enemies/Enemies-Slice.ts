@@ -15,7 +15,7 @@ export const defaultEnemyData: EnemyData = {
 	SessionStatus: SessionStatusType.initialized,
 	money: 0,
 	weapons: [WeaponTypes.Fist],
-	currentWeapon: WeaponTypes.Fist
+	currentWeapon: WeaponTypes.Fist,
 };
 
 const initialState: EnemyState = {} as EnemyState;
@@ -90,7 +90,13 @@ export const EnemySlice = createProducer(initialState, {
 	AddWeapon: (state, player: string, weapon: WeaponTypes) => {
 		return mapProperty(state, player, (enemy) => ({
 			...enemy,
-			weapons: [...enemy.weapons, weapon]
-		}))
-	}
+			weapons: [...enemy.weapons, weapon],
+		}));
+	},
+	WeaponSelect: (state, player: string, weapon: WeaponTypes) => {
+		return mapProperty(state, player, (enemy) => ({
+			...enemy,
+			currentWeapon: weapon === enemy.currentWeapon ? 0 : weapon,
+		}));
+	},
 });

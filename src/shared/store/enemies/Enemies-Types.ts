@@ -5,8 +5,8 @@ export interface EnemyData {
 	readonly IsCoolDown: boolean;
 	readonly SessionStatus: SessionStatusType;
 	readonly money: number;
-	weapons: WeaponTypes[]
-	currentWeapon: WeaponTypes
+	weapons: WeaponTypes[];
+	currentWeapon: WeaponTypes;
 }
 
 export enum EnemyStateType {
@@ -27,7 +27,9 @@ export enum SessionStatusType {
 }
 
 export enum WeaponTypes {
-	Fist = "Fist"
+	Rest = 0,
+	Fist = 1,
+	Pistol = 2,
 }
 
 export const LastHitState = HitStateType.LeftPunch;
