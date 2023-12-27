@@ -2,7 +2,7 @@ import { Networking } from "@flamework/networking";
 import { BroadcastAction } from "@rbxts/reflex";
 
 interface ClientToServerEvents {
-	MousePressed(): void;
+	MousePressed(...args: unknown[]): void;
 	requestState(): void;
 	KeyPressed(value: number): void;
 	KeyUnlocked(value: number): void;

@@ -30,5 +30,8 @@ export const GetPlayerPosition = (player: Player) => {
 
 export const GetPlayer = (): Player[] => Players.GetChildren() as Player[];
 
+export const GetParentModel = (part: Instance): Model | undefined =>
+	part.FindFirstAncestorWhichIsA("Model") as Character;
+
 export const PLAYER_SPEED = 16;
 export const PLAYER_SLOWSPEED = 8;

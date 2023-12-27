@@ -1,8 +1,6 @@
-import { UserInputService } from "@rbxts/services";
+import { UserInputService, Workspace } from "@rbxts/services";
 import { Events } from "client/network";
-import { store } from "client/store";
 import { LocalPlayer } from "client/utils/PlayerUtils";
-import { SelectPlayerCurrentWeapon } from "shared/store/enemies/Enemies-Selector";
 
 export class UserInputManager {
 	constructor() {
@@ -13,7 +11,10 @@ export class UserInputManager {
 		const mouse = LocalPlayer.GetMouse();
 
 		mouse.Button1Down.Connect(() => {
-			Events.MousePressed.fire();
+			const ray = Workspace.CurrentCamera!.ScreenPointToRay(mouse.X, mouse.Y);
+			const args = [ray];
+
+			Events.MousePressed.fire(args);
 		});
 		UserInputService.InputBegan.Connect((input, inGame) => {
 			if (!inGame) Events.KeyPressed(input.KeyCode.Value);

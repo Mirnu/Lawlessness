@@ -1,11 +1,11 @@
 import { useSelector } from "@rbxts/react-reflex";
-import Roact, { useEffect } from "@rbxts/roact";
+import Roact from "@rbxts/roact";
 import { LocalPlayer } from "client/utils/PlayerUtils";
-import { SelectPlayerWeapons } from "shared/store/enemies/Enemies-Selector";
 import { WeaponContainer } from "./WeaponContainer";
-import { WeaponTypes } from "shared/store/enemies/Enemies-Types";
+import { WeaponType } from "shared/store/fighter/Fighter-Types";
+import { SelectPlayerWeapons } from "shared/store/fighter/Fighter-Selector";
 
-const weaponContainers = (ElementsWeaponContainer: WeaponTypes[]) => {
+const weaponContainers = (ElementsWeaponContainer: WeaponType[]) => {
 	const result: Roact.Element[] = [];
 	if (ElementsWeaponContainer === undefined) return;
 	ElementsWeaponContainer.forEach((weapon, index) => {

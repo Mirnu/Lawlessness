@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 import { useSelector } from "@rbxts/react-reflex";
-import { SelectPlayerMoney } from "shared/store/enemies/Enemies-Selector";
+import { SelectPlayerMoney } from "shared/store/enemies/Player-Selector";
 import { LocalPlayer } from "client/utils/PlayerUtils";
 import { UIGradient } from "../commons/UIGradient";
 import { TextLabel } from "../commons/TextLabel";

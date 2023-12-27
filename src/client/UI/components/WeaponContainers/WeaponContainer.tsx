@@ -1,17 +1,14 @@
-import { useEventListener } from "@rbxts/pretty-react-hooks";
-import { useProducer, useSelector } from "@rbxts/react-reflex";
+import { useSelector } from "@rbxts/react-reflex";
 import Roact, { useEffect, useState } from "@rbxts/roact";
-import { UserInputService } from "@rbxts/services";
 import { TextLabel } from "client/UI/components/commons/TextLabel";
 import { UIGradient } from "client/UI/components/commons/UIGradient";
-import { RootProducer } from "client/store";
 import { LocalPlayer } from "client/utils/PlayerUtils";
-import { SelectPlayerCurrentWeapon } from "shared/store/enemies/Enemies-Selector";
-import { WeaponTypes } from "shared/store/enemies/Enemies-Types";
+import { SelectPlayerCurrentWeapon } from "shared/store/fighter/Fighter-Selector";
+import { WeaponType } from "shared/store/fighter/Fighter-Types";
 
 interface WeaponContainerProps {
 	id: number;
-	weapon: WeaponTypes;
+	weapon: WeaponType;
 }
 
 const NONSELECTIVE = 0.95;
