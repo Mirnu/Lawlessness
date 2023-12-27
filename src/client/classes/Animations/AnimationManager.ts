@@ -4,7 +4,7 @@ import { LocalPlayer } from "client/utils/PlayerUtils";
 import { GetCharacter, GetEnemy, GetEnemyPosition, PlayerIsClose } from "shared/utils/PlayerUtils";
 import { PunchAnimation } from "./PunchAnimation";
 import { BattleAnimation } from "./BattleAnimation";
-import { SelectHit } from "shared/store/fighter/Fighter-Selector";
+import { SelectFighters, SelectHit } from "shared/store/fighter/Fighter-Selector";
 import { EnemyStateType, FightingData, HitStateType } from "shared/store/fighter/Fighter-Types";
 
 const AllAnimations = ReplicatedStorage.Prefabs.Animations;
@@ -20,19 +20,13 @@ export class AnimationManager {
 	}
 
 	private Start() {
-		store.subscribe(
-			(state) => state,
-			(cur, last) => {
-				const lastEnemies = last.enemy as unknown as Map<string, unknown>;
-				const curEnemies = cur.enemy as unknown as Map<string, unknown>;
-
-				for (const [id, player] of pairs(curEnemies)) {
-					if (lastEnemies.get(id) === undefined) {
-						this.initPlayer(id as string);
-					}
+		store.subscribe(SelectFighters, (cur, last) => {
+			for (const [id, player] of pairs(cur)) {
+				if (last[id] === undefined) {
+					this.initPlayer(id as string);
 				}
-			},
-		);
+			}
+		});
 	}
 
 	private initPlayer(player: string) {

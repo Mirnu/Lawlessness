@@ -42,6 +42,5 @@ export class PlayerService implements OnStart {
 		character.Parent = Workspace.Map.enemies;
 		character.Humanoid.Died.Connect(() => store.RemoveEnemy(player.Name));
 		store.AddWeapon(player.Name, Guns.TT);
-		store.WeaponSelect(player.Name, Guns.TT);
 	}
 }

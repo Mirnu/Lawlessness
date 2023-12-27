@@ -18,7 +18,7 @@ export interface FightingsState {
 export const defaultFightingData: FightingData = {
 	health: 100,
 	enemyState: EnemyStateType.Idle,
-	hit: HitStateType.RightPunch,
+	hit: HitStateType.Rest,
 	IsCoolDown: false,
 	weapons: [WeaponTypes.Fist.Rest],
 	currentWeapon: WeaponTypes.Fist.Rest,
@@ -39,6 +39,7 @@ export const FightingSlice = createProducer(initialState, {
 	DealingDamage: (state, player: string) => {
 		return mapProperty(state, player, (enemy) => ({
 			...enemy,
+			enemyState: EnemyStateType.DealingDamage,
 			hit:
 				enemy["hit"] < LastHitState
 					? enemy.damegeInflicted === DamageInflictedType.Fist
